@@ -15,14 +15,12 @@ function Employee() {
     const [users, setUsers] = useState([])
   
     useEffect(() => {
-      console.log('useEffect')
-    
+      
       const fetchData = async () => {
           try {
             const response = await fetch ('https://randomuser.me/api/?results=10')
             const data = await response.json()
             setUsers([...data.results])
-            console.log("table data", data.results)
           } catch(e) {
             console.log(e); 
   

@@ -12,7 +12,7 @@ TODO
 
 */
 function Employee() {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([{}])
   
     useEffect(() => {
       
@@ -20,6 +20,7 @@ function Employee() {
           try {
             const response = await fetch ('https://randomuser.me/api/?results=10')
             const data = await response.json()
+            console.log("this is the data", data.results)
             setUsers([...data.results])
           } catch(e) {
             console.log(e); 
@@ -35,7 +36,7 @@ function Employee() {
     return (
     
       <div className="container">
-        <li>{users}</li>
+        <h2>{users[0].name.first}</h2>
         </div>
     );
   }

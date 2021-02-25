@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import EmployeeRow from "./EmployeeRow"
 
 //TODO determine table headers based on information from the employee object:
 /* 
@@ -30,13 +31,31 @@ function Employee() {
       fetchData()
       
     }, [])
+
+    /* 
+    add function search and filter function should store that in the filtered
+    users state and pass that to employee row
+    use .sort    .filter 
+    always want to pass employee row the filtered users 
+    */
   
     console.log('users1', users)
     useEffect(() => (console.log('users2', users)))
     return (
     
       <div className="container">
-        <h2>{users[0].name.first}</h2>
+        {/* <h2>{users[0].name.first}</h2> */}
+        <table>
+          <thead>
+            <tr>
+              <th> First Name </th>
+              <th> Last Name </th>
+              <th>  Email </th>
+            </tr>
+
+          </thead>
+          <EmployeeRow users = {users} />
+        </table>
         </div>
     );
   }

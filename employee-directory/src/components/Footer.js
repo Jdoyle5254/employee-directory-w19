@@ -3,7 +3,7 @@ import React from "react"
 function Footer () {
 
     return (
-        <h3>Created by JenDoyle</h3>
+        <h3>Created by JenDoyle (c)2021 </h3>
 
     )
 }

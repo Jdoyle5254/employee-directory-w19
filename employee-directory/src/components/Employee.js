@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import EmployeeRow from "./EmployeeRow"
+import SearchBox from "./SearchBox"
 
 //TODO determine table headers based on information from the employee object:
 /* 
@@ -14,7 +15,7 @@ TODO
 */
 function Employee() {
     const [users, setUsers] = useState([{}])
-  
+    const [filteredUsers, setFilteredUsers]  = useState([{}])
     useEffect(() => {
       
       const fetchData = async () => {
@@ -22,6 +23,7 @@ function Employee() {
             const response = await fetch ('https://randomuser.me/api/?results=10')
             const data = await response.json()
             console.log("this is the data", data.results)
+            setFilteredUsers(data.results)
             setUsers([...data.results])
           } catch(e) {
             console.log(e); 
@@ -31,6 +33,13 @@ function Employee() {
       fetchData()
       
     }, [])
+
+    function handleSearchChange(event) {
+      console.log("event change", event.target.value)
+      
+     const newFilteredUsers = users.filter(user => user.name.first.toLowerCase().indexOf(event.target.value.toLowerCase() !== -1))
+     setFilteredUsers(newFilteredUsers)
+    }
 
     /* 
     add function search and filter function should store that in the filtered
@@ -44,17 +53,21 @@ function Employee() {
     return (
     
       <div className="container">
+
+        <SearchBox handleSearchChange={handleSearchChange} />
         {/* <h2>{users[0].name.first}</h2> */}
         <table>
           <thead>
             <tr>
+              <th> Image</th>
               <th> First Name </th>
               <th> Last Name </th>
               <th>  Email </th>
             </tr>
 
           </thead>
-          <EmployeeRow users = {users} />
+          <EmployeeRow users = {filteredUsers}
+          />
         </table>
         </div>
     );

@@ -37,11 +37,13 @@ function Employee() {
       
     }, [])
 
-    function handleSearchChange(event) {
-      console.log("event change", event.target.value)
-      
-      const newFilteredUsers = users.filter(user => user.name.first.toLowerCase().indexOf(event.target.value.toLowerCase() !== -1))
-     setFilteredUsers(newFilteredUsers)
+    function handleSearchChange(e) {
+      e.preventDefault();
+      console.log("event change", e.target.value)
+      // const filter = e.target.value
+      const newFilteredList = users.filter(user => user.name.first.toLowerCase().indexOf(e.target.value.toLowerCase())  !== -1)
+      console.log("the filters", newFilteredList, e.target.value)
+     setFilteredUsers(newFilteredList)
      
     }
 
@@ -58,9 +60,6 @@ function Employee() {
       console.log("3",useState.order);
       console.log("3",order);
 
-
-       
-   
        const sortedUsers = filteredUsers.sort((a, b) => {
          console.log("here", a, b)
          if (order === "ascend") {

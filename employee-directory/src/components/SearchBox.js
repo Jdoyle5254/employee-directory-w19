@@ -3,8 +3,9 @@ import "../styles/SearchBox.css";
 
 function SearchBox({ handleSearchChange }) {
   return (
-    <div className="searchbox">
+    <div className="searchemployee">
       <form className="form-inline">
+      Search Employee Here: 
         <input
           className="form-control"
           type="search"
@@ -12,6 +13,7 @@ function SearchBox({ handleSearchChange }) {
           aria-label="Search"
           onChange={e => handleSearchChange(e)}
         />
+        
       </form>
     </div>
   );

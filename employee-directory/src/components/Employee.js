@@ -14,8 +14,11 @@ TODO
 
 */
 function Employee() {
-    const [users, setUsers] = useState([{}])
+    const [users, setUsers] = useState([{
+      
+    }])
     const [filteredUsers, setFilteredUsers]  = useState([{}])
+    var order = 'descend';
     useEffect(() => {
       
       const fetchData = async () => {
@@ -37,16 +40,56 @@ function Employee() {
     function handleSearchChange(event) {
       console.log("event change", event.target.value)
       
-     const newFilteredUsers = users.filter(user => user.name.first.toLowerCase().indexOf(event.target.value.toLowerCase() !== -1))
+      const newFilteredUsers = users.filter(user => user.name.first.toLowerCase().indexOf(event.target.value.toLowerCase() !== -1))
      setFilteredUsers(newFilteredUsers)
+     
     }
 
     /* 
-    add function search and filter function should store that in the filtered
-    users state and pass that to employee row
-    use .sort    .filter 
-    always want to pass employee row the filtered users 
-    */
+     need to sort by the table headings of name, location, 
+     need headings listed to be sorted by? 
+
+     ]
+     */
+
+     function handleSort(heading) {
+      console.log("1",users , filteredUsers);
+      console.log("2",heading);
+      console.log("3",useState.order);
+      console.log("3",order);
+
+
+       
+   
+       const sortedUsers = filteredUsers.sort((a, b) => {
+         console.log("here", a, b)
+         if (order === "ascend") {
+            if (heading === "first") {
+              return a.name.first.localeCompare(b.name.first);
+            }
+          } else if (heading === "last") {
+            return a.name.last.localeCompare(b.name.last);
+          }
+          else  { 
+            if (heading === "first") {
+              return b.name.first.localeCompare(a.name.first)
+          } else if (heading === "last") 
+          return b.name.last.localeCompare(a.name.last)
+          }
+          return 0;
+        //else
+        //  return a[heading]-b[heading]
+    
+      });
+
+       setUsers({ filteredUsers: sortedUsers }); 
+       if (order === "descend") {
+         order = "ascend"
+      }
+      else{
+        order = "descend"
+      } 
+    }
   
     console.log('users1', users)
     useEffect(() => (console.log('users2', users)))
@@ -60,9 +103,9 @@ function Employee() {
           <thead>
             <tr>
               <th> Image</th>
-              <th> First Name </th>
-              <th> Last Name </th>
-              <th>  Email </th>
+              <th  onClick={() => {handleSort("first")}} > First Name </th>
+              <th onClick={() => {handleSort("last")}} > Last Name </th>
+              <th > Email </th>
             </tr>
 
           </thead>
